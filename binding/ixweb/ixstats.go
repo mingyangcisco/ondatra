@@ -149,7 +149,7 @@ type StatRow map[string]string
 // If drilldowns are specified, the results of each drilldown on each row of
 // the target table are also returned.
 func (v *StatView) FetchTable(ctx context.Context, drilldowns ...string) (StatTable, error) {
-	if v.caption == EgressStatsCaption || v.caption == "Port Statistics" {
+	if v.caption == EgressStatsCaption || v.caption == "Port Statistics" || v.caption == "Flow Statistics" || v.caption == "Traffic Item Statistics" {
 		if len(drilldowns) != 0 {
 			return nil, fmt.Errorf("drilldowns not supported for %q", EgressStatsCaption)
 		}
