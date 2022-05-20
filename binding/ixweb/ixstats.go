@@ -16,7 +16,6 @@ package ixweb
 
 import (
 	"bytes"
-	"golang.org/x/net/context"
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -27,7 +26,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/openconfig/gocloser"
+	"golang.org/x/net/context"
+
+	closer "github.com/openconfig/gocloser"
 )
 
 const (
@@ -148,7 +149,7 @@ type StatRow map[string]string
 // If drilldowns are specified, the results of each drilldown on each row of
 // the target table are also returned.
 func (v *StatView) FetchTable(ctx context.Context, drilldowns ...string) (StatTable, error) {
-	if v.caption == EgressStatsCaption {
+	if v.caption == EgressStatsCaption || v.caption == "Port Statistics" {
 		if len(drilldowns) != 0 {
 			return nil, fmt.Errorf("drilldowns not supported for %q", EgressStatsCaption)
 		}
